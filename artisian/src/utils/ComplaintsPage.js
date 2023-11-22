@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ".././CSS/compCss.css";
 import axios from "axios";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/userContext.js";
-import WrapperCompPage from "./WrapperCompPage.js";
+import WrapperCompPage from "../StyledComponents/WrapperCompPage.js";
 import Comp from "./Comp.js";
 
 const ComplaintsPage = (props) => {
@@ -35,27 +35,111 @@ const ComplaintsPage = (props) => {
     );
     setCompData(data.comp);
   };
+
   if (compData.length === 0) {
     return (
-      <WrapperCompPage>
-        <h2>No jobs to display...</h2>
-      </WrapperCompPage>
+      <div>
+        <div
+          style={{
+            backgroundColor: "#014f59",
+            height: "55px",
+          }}
+        >
+          {auth?.user?.role === 2 || auth?.user?.role === 4 ? (
+            <>
+              <Link
+                to="/new-complaint"
+                className="btn btn-hero"
+                style={{
+                  marginLeft: "10px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                  marginTop: "6px",
+                }}
+              >
+                Register Complaint
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
+
+          <Link
+            to="/mess-menu"
+            className="btn edit-btn"
+            style={{
+              marginLeft: "10px",
+              marginRight: "10px",
+              backgroundColor: "#8f4c04",
+            }}
+          >
+            Mess Menu
+          </Link>
+
+          <button
+            type="button"
+            className="btn delete-btn"
+            style={{ backgroundColor: "#f5a6bd" }}
+            onClick={handleClick}
+          >
+            Logout
+          </button>
+        </div>
+        <h1>No Complaints Available</h1>
+      </div>
     );
   }
   return (
     <>
-      <WrapperCompPage>
-        <Link to="/new-complaint" className="btn btn-hero">
-          Register Complaint
-        </Link>
-        <Link to="/mess-menu" className="btn edit-btn">
-          Mess Menu
-        </Link>
+      <div>
+        <div
+          style={{
+            backgroundColor: "#014f59",
+            height: "55px",
+          }}
+        >
+          {auth?.user?.role === 2 || auth?.user?.role === 4 ? (
+            <>
+              <Link
+                to="/new-complaint"
+                className="btn btn-hero"
+                style={{
+                  marginLeft: "10px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                  marginTop: "6px",
+                }}
+              >
+                Register Complaint
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
 
-        <button type="button" className="btn delete-btn" onClick={handleClick}>
-          Logout
-        </button>
-      </WrapperCompPage>
+          <Link
+            to="/mess-menu"
+            className="btn edit-btn"
+            style={{
+              marginLeft: "10px",
+              marginRight: "10px",
+              backgroundColor: "#8f4c04",
+              marginTop: "8px",
+            }}
+          >
+            Mess Menu
+          </Link>
+
+          <button
+            type="button"
+            className="btn delete-btn"
+            style={{ backgroundColor: "#f5a6bd" }}
+            onClick={handleClick}
+          >
+            Logout
+          </button>
+        </div>
+      </div>
       <WrapperCompPage>
         <h5>Total Complaints</h5>
 

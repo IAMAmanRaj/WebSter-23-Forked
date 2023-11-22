@@ -8,6 +8,9 @@ import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import customErrorHandler from "./error/errorHandler.js";
 import compRoutes from "./routes/complaintRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+import expRoutes from "./routes/expenseRoutes.js"
+import voteRoutes from "./routes/voteRoutes.js";
 
 //configure env
 dotenv.config();
@@ -40,6 +43,15 @@ connectDB();
 app.use("/api/v1/auth", authRoutes);
 //compliant..
 app.use("/api/v1/comp", compRoutes);
+
+// expense ...
+app.use("/api/v1/exp",expRoutes);
+//comment..
+app.use("/api/v1/comment", commentRoutes);
+
+//votes..
+app.use("/api/v1/vote", voteRoutes);
+
 app.get("/", (req, res) => {
   res.send({
     message: "welcome to Webster'2k23 app",

@@ -3,7 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-
+import GoInsideButton from "./GoInsideButton";
+import AnimatedButton from "./AnimatedButton";
 const HostelCard = ({ title, content }) => {
   const settings = {
     dots: true,
@@ -14,25 +15,33 @@ const HostelCard = ({ title, content }) => {
   };
 
   return (
-    <div className="w-3/4 m-auto">
-      <div className="mt-20">
+    <div className="w-3/4 mr-[38px]">
+      <div className="mt-20 ">
         <Slider {...settings}>
           {data.map((d) => (
             <div
               key={d.name}
-              className="bg-white h-[450px] text-black rounded-xl"
+              className=" h-[480px] bg-zinc-950 bg-opacity-50 border-black border-4 text-black rounded-xl"
             >
-              <div className="h-56 bg-indigo-500 flex justify-center items-center rounded-t-xl">
-                <img src={d.img} alt="" className="h-44 w-44 rounded-full" />
+              <div className="h-56  flex justify-center items-center rounded-t-xl pt-6">
+                <img
+                  src={d.img}
+                  alt=""
+                  className="h-[250px] w-[300px] object-bottom rounded-3xl rounded-t-none border-4 border-black "
+                />
               </div>
 
               <div className="flex flex-col items-center justify-center gap-4 p-4">
-                <p className="text-xl font-semibold">{d.name}</p>
-                <p className="text-center">{d.about}</p>
+                <p className="text-[28px] pt-3 text-orange-400 font-mono font-semibold">
+                  {d.name}
+                </p>
+
                 <Link to={`/dashboard/${d.link}`}>
-                  <button className="bg-indigo-500 text-white text-lg px-6 py-1 rounded-xl">
-                    Go inside
-                  </button>
+                  <GoInsideButton>Proceed</GoInsideButton>
+                </Link>
+
+                <Link to={`/dashboard/${d.link}/expense`}>
+                  <AnimatedButton className="">Expenses</AnimatedButton>
                 </Link>
               </div>
             </div>

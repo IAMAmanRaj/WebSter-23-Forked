@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const WrapperComp = styled.article`
+const SingelDayMessWrapper = styled.article`
   background: var(--white);
   border-radius: var(--borderRadius);
   display: grid;
@@ -22,7 +22,7 @@ const WrapperComp = styled.article`
     height: 60px;
     display: grid;
     place-items: center;
-    background: var(--primary-500);
+    background: #607af7;
     border-radius: var(--borderRadius);
     font-size: 1.5rem;
     font-weight: 700;
@@ -63,13 +63,13 @@ const WrapperComp = styled.article`
     row-gap: 0.5rem;
     color: var(--grey-600);
     @media (min-width: 576px) {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
     }
     @media (min-width: 992px) {
       grid-template-columns: 1fr;
     }
     @media (min-width: 1120px) {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
     }
   }
 
@@ -103,4 +103,4 @@ const WrapperComp = styled.article`
   }
 `;
 
-export default WrapperComp;
+export default SingelDayMessWrapper;

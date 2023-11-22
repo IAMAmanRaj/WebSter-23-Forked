@@ -4,13 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import Footer from "../../components/Footer";
+import { useToast } from "@chakra-ui/react";
+
 import { useAuth } from "../../context/userContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useAuth();
+  const toast = useToast();
 
   const navigate = useNavigate();
 
@@ -23,22 +25,31 @@ const Login = () => {
         { email, password }
       );
 
-      if (res.data.success) {
+      if (res?.data?.success) {
         setAuth({
           ...auth,
-          user: res.data.user,
-          token: res.data.token,
+          user: res?.data?.user,
+          token: res?.data?.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        toast.success(res.data.message);
+        toast({
+          title: `Login success!!`,
+          description: "Success",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
         navigate("/dashboard");
-      } else {
-        navigate("/");
       }
     } catch (error) {
-      const msg = error.response.data.message;
+      toast({
+        title: `${error.response.data.message}`,
+        description: "Error!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
       console.log(error);
-      toast.error(msg);
     }
   };
 
@@ -51,10 +62,10 @@ const Login = () => {
           alt="loginbg"
         />
 
-        <div className="absolute w-[300px] h-[450px]  sm:w-[400px] sm:h-[430px] p-8 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-teal-950  text-gray-300 opacity-80">
+        <div className="absolute w-[300px] h-[450px]  sm:w-[400px] sm:h-[440px] p-2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-teal-950  text-gray-300 opacity-80">
           <div className="text-center">
-            <h1 className="text-3xl font-mono font-bold pb-3">Student Login</h1>
-            <span className="  text-[17px]">
+            <h1 className="text-3xl font-mono font-bold">Student Login</h1>
+            <span className=" text-[17px]">
               Don't have an account?{" "}
               <NavLink className="font-bold" to="/signup-student">
                 Sign Up
@@ -101,11 +112,18 @@ const Login = () => {
               type="submit"
             >
               Login
+              {/* TOP */}
+              <span className="absolute left-0 top-0 h-[2px] w-0 bg-indigo-300 transition-all duration-100 group-hover:w-full" />
+              {/* RIGHT */}
+              <span className="absolute right-0 top-0 h-0 w-[2px] bg-indigo-300 transition-all delay-100 duration-100 group-hover:h-full" />
+              {/* BOTTOM */}
+              <span className="absolute bottom-0 right-0 h-[2px] w-0 bg-indigo-300 transition-all delay-200 duration-100 group-hover:w-full" />
+              {/* LEFT */}
+              <span className="absolute bottom-0 left-0 h-0 w-[2px] bg-indigo-300 transition-all delay-300 duration-100 group-hover:h-full" />
             </button>
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

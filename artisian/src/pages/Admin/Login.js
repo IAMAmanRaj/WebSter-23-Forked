@@ -3,8 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
-import Footer from "../../components/Footer";
+import { useTab, useToast } from "@chakra-ui/react";
 
 import { useAuth } from "../../context/userContext";
 
@@ -14,6 +13,7 @@ const Login = () => {
   const [auth, setAuth] = useAuth();
 
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,16 +31,24 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        toast.success(res.data.message);
+        toast({
+          title: `Login Success!`,
+          description: "Success",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
         navigate("/dashboard");
-      } else {
-        toast.error(res.data.message);
       }
     } catch (error) {
       const msg = error.response.data.message;
-      toast.error(msg);
-      console.log(error);
-      toast.error(msg);
+      toast({
+        title: `${msg}`,
+        description: "Error",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -53,9 +61,9 @@ const Login = () => {
           alt="loginbg"
         />
 
-        <div className="absolute w-[300px] h-[400px]  sm:w-[400px] sm:h-[430px] p-8 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-teal-950  text-gray-300 opacity-70">
+        <div className="absolute w-[300px] h-[400px]  sm:w-[400px] sm:h-[430px] p-8 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-teal-950  text-gray-300 opacity-80">
           <div className="text-center">
-            <h1 className="text-3xl mb-2">Admin Login</h1>
+            <h1 className="text-3xl font-mono mb-2">Admin Login</h1>
             <span className=" text-[17px]">
               Don't have an account?{" "}
               <NavLink className="font-bold" to="/signup-admin">
@@ -106,7 +114,6 @@ const Login = () => {
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
